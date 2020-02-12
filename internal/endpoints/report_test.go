@@ -9,7 +9,7 @@ import (
 	"vegeta-server/models"
 	"vegeta-server/pkg/vegeta"
 
-	"github.com/gin-gonic/gin/json"
+	"encoding/json"
 
 	rmock "vegeta-server/internal/reporter/mocks"
 
