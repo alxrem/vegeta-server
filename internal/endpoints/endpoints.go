@@ -5,6 +5,7 @@ import (
 	"vegeta-server/internal/dispatcher"
 	"vegeta-server/internal/reporter"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -60,9 +61,12 @@ func NewEndpoints(d dispatcher.IDispatcher, r reporter.IReporter) *Endpoints {
 
 // SetupRouter registers the endpoint handlers and returns a pointer to the
 // server instance.
-func SetupRouter(d dispatcher.IDispatcher, r reporter.IReporter) *gin.Engine {
+func SetupRouter(d dispatcher.IDispatcher, r reporter.IReporter, c *cors.Config) *gin.Engine {
 	router := gin.Default()
 
+	if c != nil {
+		router.Use(cors.New(*c))
+	}
 	e := NewEndpoints(d, r)
 
 	// api/v1 router group

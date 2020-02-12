@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"os"
 	"os/signal"
 	"runtime"
@@ -32,6 +33,9 @@ var (
 	redisHost = kingpin.Flag("redis", "Redis Server Address.").String()
 	v         = kingpin.Flag("version", "Version Info").Short('v').Bool()
 	debug     = kingpin.Flag("debug", "Enabled Debug").Bool()
+
+	corsEnabled      = kingpin.Flag("cors.enabled", "Whether to send CORS headers").Default("false").Bool()
+	corsAllowOrigins = kingpin.Flag("cors.allow-origin", "Allowed origins for cross-origin requests").Default("*").Strings()
 )
 
 func main() {
@@ -82,7 +86,16 @@ func main() {
 
 	go d.Run(quit)
 
-	engine := endpoints.SetupRouter(d, r)
+	var corsConfig *cors.Config
+
+	if *corsEnabled {
+		log.WithField("allow_origins", *corsAllowOrigins).Debug("CORS enabled")
+		corsConfig = &cors.Config{
+			AllowOrigins: *corsAllowOrigins,
+		}
+	}
+
+	engine := endpoints.SetupRouter(d, r, corsConfig)
 
 	sig := make(chan os.Signal, 1)
 

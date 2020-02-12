@@ -8,4 +8,4 @@ RUN make build
 # Final stage
 FROM gcr.io/distroless/static
 COPY --from=build-env /vegeta-server/bin/vegeta-server .
-CMD ["./vegeta-server"]
+ENTRYPOINT ["./vegeta-server"]
