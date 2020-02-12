@@ -60,5 +60,8 @@ func (e *Endpoints) GetReportByIDEndpoint(c *gin.Context) {
 	case vegeta.HistogramFormatString:
 		c.Header("Content-Type", "text/plain")
 		c.String(http.StatusOK, "%s", resp)
+	case vegeta.PlotFormatString:
+		c.Header("Content-Type", "text/html")
+		c.String(http.StatusOK, "%s", resp)
 	}
 }

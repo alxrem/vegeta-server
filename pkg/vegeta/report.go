@@ -20,6 +20,8 @@ const (
 	HistogramFormatString string = "histogram"
 	// BinaryFormatString typedef for query param "binary"
 	BinaryFormatString string = "binary"
+	// PlotFormatString typedef for query param "plot"
+	PlotFormatString string = "plot"
 	// DefaultBucketString Default Bucket String
 	DefaultBucketString string = "0,500ms,1s,1.5s,2s,2.5s,3s"
 )
@@ -52,6 +54,10 @@ func CreateReportFromReader(reader io.Reader, id string, format Format) ([]byte,
 			return nil, errors.Wrap(err, fmt.Sprintf("failed to unmarshal bucket %s", b))
 		}
 		rep, report = vegeta.NewHistogramReporter(&hist), &hist
+	case PlotFormatString:
+		p := NewPlot()
+		report = p
+		rep = p.NewReporter()
 	default:
 		return nil, fmt.Errorf("format %s not supported", format)
 	}

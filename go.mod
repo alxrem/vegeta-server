@@ -21,6 +21,7 @@ require (
 	github.com/sirupsen/logrus v1.3.0
 	github.com/streadway/quantile v0.0.0-20150917103942-b0c588724d25 // indirect
 	github.com/stretchr/testify v1.2.2
+	github.com/tsenart/go-tsz v0.0.0-20180814235614-0bd30b3df1c3 // indirect
 	github.com/tsenart/vegeta v12.7.0+incompatible
 	github.com/ugorji/go/codec v0.0.0-20190128213124-ee1426cffec0 // indirect
 	golang.org/x/net v0.0.0-20190125091013-d26f9f9a57f3 // indirect
@@ -33,3 +34,5 @@ require (
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
+
+go 1.13

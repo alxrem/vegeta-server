@@ -23,6 +23,8 @@ func NewFormat(typ string) Format {
 		return NewBinaryFormat()
 	case "histogram":
 		return NewHistogramFormat()
+	case "plot":
+		return NewPlotFormat()
 	}
 	return NewJSONFormat() // default
 }
@@ -129,4 +131,29 @@ func (h *HistogramFormat) String() string {
 // Meta returns the meta information stored in the Format
 func (h *HistogramFormat) Meta() MetaInfo {
 	return h.meta
+}
+
+// TextFormat typedef for query param "text"
+type PlotFormat string
+
+// NewTextFormat returns a new Format of Text type
+func NewPlotFormat() *PlotFormat {
+	f := PlotFormat("plot")
+	return &f
+}
+
+// SetMeta will set the meta information
+// no-op method
+func (j *PlotFormat) SetMeta(key, value string) {
+}
+
+// String implements Stringer for PlotFormat
+func (j *PlotFormat) String() string {
+	return string(*j)
+}
+
+// Meta returns the meta information stored in the Format
+// no-op method
+func (j *PlotFormat) Meta() (m MetaInfo) {
+	return nil
 }
